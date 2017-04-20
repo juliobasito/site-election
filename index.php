@@ -30,6 +30,8 @@ array_multisort($price, SORT_DESC, $candidats);
     <script src="http://jvectormap.com/js/jquery-jvectormap-fr_regions-mill.js"></script>
     <script src="http://jvectormap.com/js/jquery-jvectormap-fr-mill.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-default">
