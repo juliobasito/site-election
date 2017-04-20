@@ -59,6 +59,7 @@ array_multisort($price, SORT_DESC, $candidats);
 
 <!--    <div class="container">-->
         <?php
+        $xml = simplexml_load_file('http://www.interieur.gouv.fr/avotreservice/elections/telechargements/EssaiPR2017/referencePR/listeregdptcom.xml');
 
         require 'pages/regions.php';
         require 'pages/departements.php';
