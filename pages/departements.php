@@ -18,9 +18,9 @@
 		if(!empty($_POST["valider"])){
 			$explode = explode(".", $_POST["departement"]);
 			$region = $explode[0];
-			$departeemnt = $explode[1];
-			$xml = simplexml_load_file('http://www.interieur.gouv.fr/avotreservice/elections/telechargements/EssaiPR2017/resultatsT1/'.$region.'/'.$departement.'/'.$departement.'.xml');
-			foreach($xml->Region->Tours->Tour->Resultats->Candidats->Candidat as $candidat){
+			$departement = $explode[1];
+			$xml2 = simplexml_load_file('http://www.interieur.gouv.fr/avotreservice/elections/telechargements/EssaiPR2017/resultatsT1/'.$region.'/'.$departement.'/'.$departement.'.xml');
+			foreach($xml2->Departement->Tours->Tour->Resultats->Candidats->Candidat as $candidat){
 				echo $candidat->NomPsn." a obtenu ".$candidat->NbVoix." voix, bien joue !</br>";
 			}
 		}
@@ -28,15 +28,15 @@
 
 	?>
 	<form method="post">
-		<select name="region">
+		<select name="departement">
 			<?php
 				foreach($xml->Regions->Region as $regions){
 					foreach($regions->Departements->Departement as $departement){
-						echo '<option value="'.$regions->CodReg3Car.'.'.$departement->CodDpt3Car.'>'.$departement->LibDpt.'</option>';
+						echo '<option value="'.$regions->CodReg3Car.'.'.$departement->CodDpt3Car.'">'.$departement->LibDpt.'</option>';
 					}
 				}
 			?>
-		</select>uhkjhj
+		</select>
 		<input type="submit" value="valider" name="valider"/>
 	</form>
 </body>
