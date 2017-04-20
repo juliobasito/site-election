@@ -1,11 +1,14 @@
-	<?php
-	include('header.php');
-		$can = new DomDocument();
-		$can->load('http://www.interieur.gouv.fr/avotreservice/elections/telechargements/EssaiPR2017/referencePR/listeregdptcom.xml');
-		$listeCandidat = $can->getElementsByTagName('LibDpt');
-		foreach($listeCandidat as $liste){
-			 echo $liste->firstChild->nodeValue.'</br>';
-		}
-	?>
-</body>
-</html>
+<form method="post">
+    <select name="departement">
+<?php
+foreach ($xml->Regions->Region as $regions) {
+    foreach ($regions->Departements as $departement) {
+        if (count($departement->Departement)>1)
+            foreach ($departement->Departement as $subDepartement)
+                echo '<option value="' . $subDepartement->CodDpt3Car . '">' . $subDepartement->LibDpt . '</option>';
+    }
+}
+?>
+    </select>
+    <input type="submit" value="valider" name="valider"/>
+</form>

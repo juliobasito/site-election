@@ -19,11 +19,13 @@ array_multisort($price, SORT_DESC, $candidats);
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-    <link rel="stylesheet" type="text/css"src="https://cdnjs.cloudflare.com/ajax/libs/jvectormap/2.0.4/jquery-jvectormap.css">
+    <link rel="stylesheet" type="text/css"
+          src="https://cdnjs.cloudflare.com/ajax/libs/jvectormap/2.0.4/jquery-jvectormap.css">
     <link rel="stylesheet" href="css/style.css">
 
 
-    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.js"
+            integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
     <script src="jvectormap/jquery.jvectormap.min.js"></script>
     <script src="http://jvectormap.com/js/jquery-jvectormap-fr_regions-mill.js"></script>
     <script src="http://jvectormap.com/js/jquery-jvectormap-fr-mill.js"></script>
@@ -44,10 +46,10 @@ array_multisort($price, SORT_DESC, $candidats);
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="../pages/">France</a></li>
+                <li><a class="level0" href="../pages/">France</a></li>
+                <li><a class="level0" href="pages/regions.php">Région</a></li>
+                <li><a class="level1" href="pages/departements.php">Département</a></li>
                 <li><a href="pages/communes.php">Communes</a></li>
-                <li><a href="pages/departements.php">Departement</a></li>
-                <li><a href="pages/regions.php">Region</a></li>
             </ul>
         </div>
     </div>
@@ -55,13 +57,25 @@ array_multisort($price, SORT_DESC, $candidats);
 </nav>
 <div class="container">
 
-    <button id="search">Actualiser</button>
-    <div id="map-container">
-        <div id="map" style="width: 1000px; height: 1000px;"></div>
+<!--    <div class="container">-->
+        <?php
+
+        require 'pages/regions.php';
+        require 'pages/departements.php';
+//        require 'pages/communes.php';
+        ?>
+<!--    </div>-->
+    <div class="container">
+
+        <div id="map-container">
+            <div id="map" style="width: 1000px; height: 1000px;"></div>
+        </div>
+
+        <div id="chart-container">
+            <canvas id="myChart" style="width: 1000px; height: 1000px;"></canvas>
+
+        </div>
     </div>
-
-    <canvas id="myChart"></canvas>
-
 </div>
 
 
@@ -119,7 +133,7 @@ array_multisort($price, SORT_DESC, $candidats);
 
         $.ajax({
             type: 'GET',
-            url: host+'FE.xml',
+            url: host + 'FE.xml',
             data: '',
             crossDomain: true,
             success: function (data, xhr) {
@@ -132,7 +146,7 @@ array_multisort($price, SORT_DESC, $candidats);
             }
         });
 
-        $('#map-container').html(' <div id="map"></div>');
+        $('#map-container').html(' <div id="map" style="width: 1000px; height: 1000px;"></div>');
         $('#map').vectorMap({
             map: 'fr_mill'
         });
@@ -142,6 +156,24 @@ array_multisort($price, SORT_DESC, $candidats);
     $('#map').click(function () {
         search();
         console.log('yes');
+    });
+
+
+    $('.level0').click(function (e) {
+        e.preventDefault();
+        $('#map-container').html(' <div id="map" style="width: 1000px; height: 1000px;"></div>');
+
+        $('#map').vectorMap({
+            map: 'fr_regions_mill'
+        });
+    });
+    $('.level1').click(function (e) {
+        e.preventDefault();
+        $('#map-container').html(' <div id="map" style="width: 1000px; height: 1000px;"></div>');
+
+        $('#map').vectorMap({
+            map: 'fr_mill'
+        });
     });
     ////////CHART////////
 

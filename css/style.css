@@ -24,12 +24,23 @@ a{
 	height: 100%;
 }
 
-.jvectormap-container, #myChart {
+#map-container{
+	float: left;
 	height: 50%;
-	width: 50%;
+	width: 40%;
+}
+.jvectormap-container{
+	height: 50%;
+	width: 40%;
 }
 
-#myChart {
-	width: 400px;
-	height: 400px;
+#chart-container{
+	float: left;
+	width: 60%;
 }
+#myChart{
+	height: 600px;
+}
+
+
+
