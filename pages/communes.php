@@ -1,12 +1,6 @@
 
 <?php
 	include('header.php');
-	$can = new DomDocument();
-	$can->load('http://www.interieur.gouv.fr/avotreservice/elections/telechargements/EssaiPR2017/referencePR/listeregdptcom.xml');
-	$listeCandidat = $can->getElementsByTagName('LibSubCom');
-	foreach($listeCandidat as $liste)
-	{
-		 echo $liste->firstChild->nodeValue.'</br>';
 		if(!empty($_POST["valider"]))
 		{
 			$explode = explode(".", $_POST["departement"]);
@@ -19,7 +13,6 @@
 				echo $candidat->NomPsn." a obtenu ".$candidat->NbVoix." voix, bien joue !</br>";
 			}
 		}
-	}
 	$xml = simplexml_load_file('http://www.interieur.gouv.fr/avotreservice/elections/telechargements/EssaiPR2017/referencePR/listeregdptcom.xml');
 ?>
 	<form method="post">
