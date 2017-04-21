@@ -28,11 +28,8 @@ array_multisort($price, SORT_DESC, $candidats);
 
     <script src="https://code.jquery.com/jquery-3.2.1.js"
             integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
-<!--    <script src="jvectormap/jquery.jvectormap.min.js"></script>-->
-<!--    <script src="http://jvectormap.com/js/jquery-jvectormap-fr_regions-mill.js"></script>-->
-<!--    <script src="http://jvectormap.com/js/jquery-jvectormap-fr-mill.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 </head>
 <body>
@@ -53,7 +50,7 @@ array_multisort($price, SORT_DESC, $candidats);
                 <li><a class="level0" href="../pages/">France</a></li>
                 <li><a class="level1" href="pages/regions.php">Région</a></li>
                 <li><a class="level2" href="pages/departements.php">Département</a></li>
-                <li><a class="level3"href="pages/communes.php">Communes</a></li>
+                <li><a class="level3" href="pages/communes.php">Communes</a></li>
             </ul>
         </div>
     </div>
@@ -61,30 +58,27 @@ array_multisort($price, SORT_DESC, $candidats);
 </nav>
 <div class="container">
 
-<!--    <div class="container">-->
-        <?php
-        $xml = simplexml_load_file('http://www.interieur.gouv.fr/avotreservice/elections/telechargements/EssaiPR2017/referencePR/listeregdptcom.xml');
+    <?php
+    $xml = simplexml_load_file('http://www.interieur.gouv.fr/avotreservice/elections/telechargements/EssaiPR2017/referencePR/listeregdptcom.xml');
 
-        require 'pages/regions.php';
-        require 'pages/departements.php';
-        require 'pages/communes.php';
-        ?>
-<!--    </div>-->
+    require 'pages/regions.php';
+    require 'pages/departements.php';
+    require 'pages/communes.php';
+    ?>
     <div class="container">
-
-<!--        <div id="map-container">-->
-<!--            <div id="map" style="width: 1000px; height: 1000px;"></div>-->
-<!--        </div>-->
 
         <div id="chart-container">
             <canvas id="myChart" style="width: 1000px; height: 1000px;"></canvas>
 
         </div>
         <div id="legend">
-<!--            --><?php //var_dump($fe->Tours->Tour->Mentions); ?>
-            <p>Nombre de votants: <i class="nb-votants"><?php echo $fe->Tours->Tour->Mentions->Votants->Nombre; ?>, soit <?php echo $fe->Tours->Tour->Mentions->Votants->RapportInscrit; ?> %</i></p>
-            <p>Abstention: <i class="nb-abstention"><?php echo $fe->Tours->Tour->Mentions->Abstentions->Nombre; ?>, soit <?php echo $fe->Tours->Tour->Mentions->Abstentions->RapportInscrit; ?> %</i></p>
-            <p>Vote blanc: <i class="nb-vote-blanc"><?php echo $fe->Tours->Tour->Mentions->Blancs->Nombre; ?>, soit <?php echo $fe->Tours->Tour->Mentions->Blancs->RapportInscrit; ?> %</i></p>
+            <!--            --><?php //var_dump($fe->Tours->Tour->Mentions); ?>
+            <p>Nombre de votants: <i class="nb-votants"><?php echo $fe->Tours->Tour->Mentions->Votants->Nombre; ?>,
+                    soit <?php echo $fe->Tours->Tour->Mentions->Votants->RapportInscrit; ?> %</i></p>
+            <p>Abstention: <i class="nb-abstention"><?php echo $fe->Tours->Tour->Mentions->Abstentions->Nombre; ?>,
+                    soit <?php echo $fe->Tours->Tour->Mentions->Abstentions->RapportInscrit; ?> %</i></p>
+            <p>Vote blanc: <i class="nb-vote-blanc"><?php echo $fe->Tours->Tour->Mentions->Blancs->Nombre; ?>,
+                    soit <?php echo $fe->Tours->Tour->Mentions->Blancs->RapportInscrit; ?> %</i></p>
         </div>
     </div>
 </div>
@@ -111,7 +105,7 @@ array_multisort($price, SORT_DESC, $candidats);
     ];
 
 
-    function displayChart(labels, scores){
+    function displayChart(labels, scores) {
 
 
         $('#chart-container').html('<canvas id="myChart" style="width: 1000px; height: 1000px;"></canvas>');
@@ -162,18 +156,18 @@ array_multisort($price, SORT_DESC, $candidats);
                 console.log('revceived');
 
                 labels = [];
-                for(var i=0; i< data['candidats'].length; i++){
-                    labels.push(data['candidats'][i]['NomPsn']+' '+data['candidats'][i]['PrenomPsn']);
+                for (var i = 0; i < data['candidats'].length; i++) {
+                    labels.push(data['candidats'][i]['NomPsn'] + ' ' + data['candidats'][i]['PrenomPsn']);
                 }
 
                 scores = [];
-                for(var i=0; i< data['candidats'].length; i++){
+                for (var i = 0; i < data['candidats'].length; i++) {
                     scores.push(data['candidats'][i]['RapportExprime'].replace(',', '.'));
                 }
                 scores.push(50);
-                $('.nb-votants').html(data['votant']['number']+', soit '+data['votant']['number']+' %');
-                $('.nb-abstention').html(data['abstention']['number']+', soit '+data['abstention']['number']+' %');
-                $('.nb-vote-blanc').html(data['blanc']['number']+', soit '+data['blanc']['number']+' %');
+                $('.nb-votants').html(data['votant']['number'] + ', soit ' + data['votant']['number'] + ' %');
+                $('.nb-abstention').html(data['abstention']['number'] + ', soit ' + data['abstention']['number'] + ' %');
+                $('.nb-vote-blanc').html(data['blanc']['number'] + ', soit ' + data['blanc']['number'] + ' %');
 
                 displayChart(labels, scores);
 
@@ -198,21 +192,19 @@ array_multisort($price, SORT_DESC, $candidats);
         search($('#commune-search').serialize());
     });
 
-//
-//    $('#valider-departements').click(function (e) {
-//        e.preventDefault();
-//        search($('#departement-search').serialize());
-//    });
-//    $('#valider-region').click(function (e) {
-//        e.preventDefault();
-//        search($('#region-search').serialize());
-//    });
-//    $('#valider-communes').click(function (e) {
-//        e.preventDefault();
-//        search($('#commune-search').serialize());
-//    });
-
-
+    //
+    //    $('#valider-departements').click(function (e) {
+    //        e.preventDefault();
+    //        search($('#departement-search').serialize());
+    //    });
+    //    $('#valider-region').click(function (e) {
+    //        e.preventDefault();
+    //        search($('#region-search').serialize());
+    //    });
+    //    $('#valider-communes').click(function (e) {
+    //        e.preventDefault();
+    //        search($('#commune-search').serialize());
+    //    });
 
 
     $('.level0').click(function (e) {
@@ -263,11 +255,11 @@ array_multisort($price, SORT_DESC, $candidats);
     ////////CHART////////
 
 
-//    $(function () {
-//
-//        $('#map').vectorMap({
-//            map: 'fr_regions_mill'
-//        });
-//    });
+    //    $(function () {
+    //
+    //        $('#map').vectorMap({
+    //            map: 'fr_regions_mill'
+    //        });
+    //    });
 </script>
 </html>
