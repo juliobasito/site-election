@@ -21,19 +21,19 @@ a{
 	height: 100%;
 }
 
-#map-container{
-	float: left;
-	height: 50%;
-	width: 40%;
-}
-.jvectormap-container{
-	height: 50%;
-	width: 40%;
-}
+/*#map-container{*/
+	/*float: left;*/
+	/*height: 50%;*/
+	/*width: 40%;*/
+/*}*/
+/*.jvectormap-container{*/
+	/*height: 50%;*/
+	/*width: 40%;*/
+/*}*/
 
 #chart-container{
 	float: left;
-	width: 60%;
+	width: 100%;
 }
 #myChart{
 	height: 600px;

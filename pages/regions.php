@@ -7,7 +7,7 @@
         }
         ?>
     </select>
-    <input type="submit" value="valider" name="valider-region" id="valider-region"/>
+<!--    <input type="submit" value="valider" name="valider-region" id="valider-region"/>-->
 </form>
 <script>
     $('select[name=region]').select2();

@@ -28,9 +28,9 @@ array_multisort($price, SORT_DESC, $candidats);
 
     <script src="https://code.jquery.com/jquery-3.2.1.js"
             integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
-    <script src="jvectormap/jquery.jvectormap.min.js"></script>
-    <script src="http://jvectormap.com/js/jquery-jvectormap-fr_regions-mill.js"></script>
-    <script src="http://jvectormap.com/js/jquery-jvectormap-fr-mill.js"></script>
+<!--    <script src="jvectormap/jquery.jvectormap.min.js"></script>-->
+<!--    <script src="http://jvectormap.com/js/jquery-jvectormap-fr_regions-mill.js"></script>-->
+<!--    <script src="http://jvectormap.com/js/jquery-jvectormap-fr-mill.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
@@ -72,13 +72,19 @@ array_multisort($price, SORT_DESC, $candidats);
 <!--    </div>-->
     <div class="container">
 
-        <div id="map-container">
-            <div id="map" style="width: 1000px; height: 1000px;"></div>
-        </div>
+<!--        <div id="map-container">-->
+<!--            <div id="map" style="width: 1000px; height: 1000px;"></div>-->
+<!--        </div>-->
 
         <div id="chart-container">
             <canvas id="myChart" style="width: 1000px; height: 1000px;"></canvas>
 
+        </div>
+        <div id="legend">
+<!--            --><?php //var_dump($fe->Tours->Tour->Mentions); ?>
+            <p>Nombre de votants: <i class="nb-votants"><?php echo $fe->Tours->Tour->Mentions->Votants->Nombre; ?>, soit <?php echo $fe->Tours->Tour->Mentions->Votants->RapportInscrit; ?> %</i></p>
+            <p>Abstention: <i class="nb-abstention"><?php echo $fe->Tours->Tour->Mentions->Abstentions->Nombre; ?>, soit <?php echo $fe->Tours->Tour->Mentions->Abstentions->RapportInscrit; ?> %</i></p>
+            <p>Vote blanc: <i class="nb-vote-blanc"><?php echo $fe->Tours->Tour->Mentions->Blancs->Nombre; ?>, soit <?php echo $fe->Tours->Tour->Mentions->Blancs->RapportInscrit; ?> %</i></p>
         </div>
     </div>
 </div>
@@ -106,6 +112,7 @@ array_multisort($price, SORT_DESC, $candidats);
 
 
     function displayChart(labels, scores){
+
 
         $('#chart-container').html('<canvas id="myChart" style="width: 1000px; height: 1000px;"></canvas>');
         var ctx = document.getElementById("myChart").getContext('2d');
@@ -145,7 +152,6 @@ array_multisort($price, SORT_DESC, $candidats);
 
 
     function search(form) {
-
         $.ajax({
             type: 'POST',
             url: host + 'api/index.php',
@@ -165,6 +171,9 @@ array_multisort($price, SORT_DESC, $candidats);
                     scores.push(data['candidats'][i]['RapportExprime'].replace(',', '.'));
                 }
                 scores.push(50);
+                $('.nb-votants').html(data['votant']['number']+', soit '+data['votant']['number']+' %');
+                $('.nb-abstention').html(data['abstention']['number']+', soit '+data['abstention']['number']+' %');
+                $('.nb-vote-blanc').html(data['blanc']['number']+', soit '+data['blanc']['number']+' %');
 
                 displayChart(labels, scores);
 
@@ -176,30 +185,42 @@ array_multisort($price, SORT_DESC, $candidats);
         });
 
     }
-
-
-    $('#valider-departements').click(function (e) {
+    $('#departement-search').on('change', function (e) {
         e.preventDefault();
         search($('#departement-search').serialize());
     });
-    $('#valider-region').click(function (e) {
+    $('#region-search').on('change', function (e) {
         e.preventDefault();
         search($('#region-search').serialize());
     });
-    $('#valider-communes').click(function (e) {
+    $('#commune-search').on('change', function (e) {
         e.preventDefault();
         search($('#commune-search').serialize());
     });
+
+//
+//    $('#valider-departements').click(function (e) {
+//        e.preventDefault();
+//        search($('#departement-search').serialize());
+//    });
+//    $('#valider-region').click(function (e) {
+//        e.preventDefault();
+//        search($('#region-search').serialize());
+//    });
+//    $('#valider-communes').click(function (e) {
+//        e.preventDefault();
+//        search($('#commune-search').serialize());
+//    });
 
 
 
 
     $('.level0').click(function (e) {
         e.preventDefault();
-        $('#map-container').html(' <div id="map" style="width: 1000px; height: 1000px;"></div>');
-        $('#map').vectorMap({
-            map: 'fr_regions_mill'
-        });
+//        $('#map-container').html(' <div id="map" style="width: 1000px; height: 1000px;"></div>');
+//        $('#map').vectorMap({
+//            map: 'fr_regions_mill'
+//        });
         displayChart(labels, scores);
 
         $('#region-search').hide();
@@ -208,10 +229,10 @@ array_multisort($price, SORT_DESC, $candidats);
     });
     $('.level1').click(function (e) {
         e.preventDefault();
-        $('#map-container').html(' <div id="map" style="width: 1000px; height: 1000px;"></div>');
-        $('#map').vectorMap({
-            map: 'fr_regions_mill'
-        });
+//        $('#map-container').html(' <div id="map" style="width: 1000px; height: 1000px;"></div>');
+//        $('#map').vectorMap({
+//            map: 'fr_regions_mill'
+//        });
 
         $('#region-search').show();
         $('#departement-search').hide();
@@ -219,22 +240,22 @@ array_multisort($price, SORT_DESC, $candidats);
     });
     $('.level2').click(function (e) {
         e.preventDefault();
-        $('#map-container').html(' <div id="map" style="width: 1000px; height: 1000px;"></div>');
-
-        $('#map').vectorMap({
-            map: 'fr_mill'
-        });
+//        $('#map-container').html(' <div id="map" style="width: 1000px; height: 1000px;"></div>');
+//
+//        $('#map').vectorMap({
+//            map: 'fr_mill'
+//        });
         $('#region-search').hide();
         $('#departement-search').show();
         $('#commune-search').hide();
     });
     $('.level3').click(function (e) {
         e.preventDefault();
-        $('#map-container').html(' <div id="map" style="width: 1000px; height: 1000px;"></div>');
-
-        $('#map').vectorMap({
-            map: 'fr_mill'
-        });
+//        $('#map-container').html(' <div id="map" style="width: 1000px; height: 1000px;"></div>');
+//
+//        $('#map').vectorMap({
+//            map: 'fr_mill'
+//        });
         $('#region-search').hide();
         $('#departement-search').hide();
         $('#commune-search').show();
@@ -242,11 +263,11 @@ array_multisort($price, SORT_DESC, $candidats);
     ////////CHART////////
 
 
-    $(function () {
-
-        $('#map').vectorMap({
-            map: 'fr_regions_mill'
-        });
-    });
+//    $(function () {
+//
+//        $('#map').vectorMap({
+//            map: 'fr_regions_mill'
+//        });
+//    });
 </script>
 </html>

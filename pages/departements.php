@@ -9,7 +9,7 @@
         }
         ?>
     </select>
-    <input type="submit" value="valider" name="valider-departements" id="valider-departements"/>
+<!--    <input type="submit" value="valider" name="valider-departements" id="valider-departements"/>-->
 </form>
 <script>
     $('select[name=departement]').select2();

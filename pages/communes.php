@@ -12,7 +12,7 @@
         }
         ?>
     </select>
-    <input type="submit" value="valider" name="valider-communes" id="valider-communes"/>
+<!--    <input type="submit" value="valider" name="valider-communes" id="valider-communes"/>-->
 </form>
 
 <script>
