@@ -1,4 +1,6 @@
 <?php
+
+require 'config.inc.php';
 $fe = simplexml_load_file('http://www.interieur.gouv.fr/avotreservice/elections/telechargements/EssaiPR2017/resultatsT1/FE.xml');
 
 $candidats = array();
@@ -139,14 +141,14 @@ array_multisort($price, SORT_DESC, $candidats);
 
 
     ////////AJAX////////
-    var host = 'http://localhost/THEO/site-election/api/';
+    var host = '<?php echo $host; ?>';
 
 
     function search(form) {
 
         $.ajax({
             type: 'POST',
-            url: host + 'index.php',
+            url: host + 'api/index.php',
             data: form,
             crossDomain: true,
             success: function (data, xhr) {
