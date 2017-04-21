@@ -1,5 +1,6 @@
-<form method="post" id="departement-search">
-    <select name="departement" id="waza" data-live-search="true">
+<form method="post" id="departement-search" style="display: none">
+    <select name="departement" >
+        <option value="">-- Département --</option>
         <?php
         foreach ($xml->Regions->Region as $regions) {
             foreach ($regions->Departements->Departement as $departement) {

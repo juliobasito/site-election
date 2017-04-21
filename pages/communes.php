@@ -1,20 +1,7 @@
-<?php
-if (!empty($_POST["valider"])) {
-    $explode = explode(".", $_POST["departement"]);
-    $region = $explode[0];
-    $departement = $explode[1];
-    $commune = $explode[2];
-    $xml2 = simplexml_load_file('http://www.interieur.gouv.fr/avotreservice/elections/telechargements/EssaiPR2017/resultatsT1/' . $region . '/' . $departement . '/' . $departement . '' . $commune . '.xml');
-    foreach ($xml2->Departement->Commune->Tours->Tour->Resultats->Candidats->Candidat as $candidat) {
-        echo $candidat->NomPsn . " a obtenu " . $candidat->NbVoix . " voix, bien joue !</br>";
-    }
+<form method="post" id="commune-search" style="display: none">
 
-}
-$xml = simplexml_load_file('http://www.interieur.gouv.fr/avotreservice/elections/telechargements/EssaiPR2017/referencePR/listeregdptcom.xml');
-?>
-<form method="post">
-
-    <select name="departement">
+    <select name="commune">
+        <option value="">-- Communes --</option>
         <?php
         foreach ($xml->Regions->Region as $regions) {
             foreach ($regions->Departements->Departement as $departement) {
@@ -25,5 +12,9 @@ $xml = simplexml_load_file('http://www.interieur.gouv.fr/avotreservice/elections
         }
         ?>
     </select>
-    <input type="submit" value="valider" name="valider"/>
+    <input type="submit" value="valider" name="valider-communes" id="valider-communes"/>
 </form>
+
+<script>
+    $('select[name=commune]').select2();
+</script>

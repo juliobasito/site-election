@@ -39,5 +39,8 @@ a{
 	height: 600px;
 }
 
+.select2-container{
+	width: 500px !important;
+}
 
 

@@ -1,5 +1,6 @@
-<form method="post" id="region-search">
-    <select name="region">
+<form method="post" id="region-search" style="display: none">
+    <select name="region"  >
+        <option value="">-- Région --</option>
         <?php
         foreach ($xml->Regions->Region as $regions) {
             echo '<option value="' . $regions->CodReg3Car . '">' . $regions->LibReg . '</option>';

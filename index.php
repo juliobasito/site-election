@@ -51,9 +51,9 @@ array_multisort($price, SORT_DESC, $candidats);
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li><a class="level0" href="../pages/">France</a></li>
-                <li><a class="level0" href="pages/regions.php">Région</a></li>
-                <li><a class="level1" href="pages/departements.php">Département</a></li>
-                <li><a href="pages/communes.php">Communes</a></li>
+                <li><a class="level1" href="pages/regions.php">Région</a></li>
+                <li><a class="level2" href="pages/departements.php">Département</a></li>
+                <li><a class="level3"href="pages/communes.php">Communes</a></li>
             </ul>
         </div>
     </div>
@@ -67,7 +67,7 @@ array_multisort($price, SORT_DESC, $candidats);
 
         require 'pages/regions.php';
         require 'pages/departements.php';
-//        require 'pages/communes.php';
+        require 'pages/communes.php';
         ?>
 <!--    </div>-->
     <div class="container">
@@ -164,10 +164,10 @@ array_multisort($price, SORT_DESC, $candidats);
                 for(var i=0; i< data['candidats'].length; i++){
                     scores.push(data['candidats'][i]['RapportExprime'].replace(',', '.'));
                 }
+                scores.push(50);
 
                 displayChart(labels, scores);
 
-//                console.log(data);
             },
             error: function (data, xhr) {
                 console.log('error');
@@ -181,12 +181,14 @@ array_multisort($price, SORT_DESC, $candidats);
     $('#valider-departements').click(function (e) {
         e.preventDefault();
         search($('#departement-search').serialize());
-        console.log('yes');
     });
     $('#valider-region').click(function (e) {
         e.preventDefault();
         search($('#region-search').serialize());
-        console.log('yes');
+    });
+    $('#valider-communes').click(function (e) {
+        e.preventDefault();
+        search($('#commune-search').serialize());
     });
 
 
@@ -195,18 +197,47 @@ array_multisort($price, SORT_DESC, $candidats);
     $('.level0').click(function (e) {
         e.preventDefault();
         $('#map-container').html(' <div id="map" style="width: 1000px; height: 1000px;"></div>');
-
         $('#map').vectorMap({
             map: 'fr_regions_mill'
         });
+        displayChart(labels, scores);
+
+        $('#region-search').hide();
+        $('#departement-search').hide();
+        $('#commune-search').hide();
     });
     $('.level1').click(function (e) {
+        e.preventDefault();
+        $('#map-container').html(' <div id="map" style="width: 1000px; height: 1000px;"></div>');
+        $('#map').vectorMap({
+            map: 'fr_regions_mill'
+        });
+
+        $('#region-search').show();
+        $('#departement-search').hide();
+        $('#commune-search').hide();
+    });
+    $('.level2').click(function (e) {
         e.preventDefault();
         $('#map-container').html(' <div id="map" style="width: 1000px; height: 1000px;"></div>');
 
         $('#map').vectorMap({
             map: 'fr_mill'
         });
+        $('#region-search').hide();
+        $('#departement-search').show();
+        $('#commune-search').hide();
+    });
+    $('.level3').click(function (e) {
+        e.preventDefault();
+        $('#map-container').html(' <div id="map" style="width: 1000px; height: 1000px;"></div>');
+
+        $('#map').vectorMap({
+            map: 'fr_mill'
+        });
+        $('#region-search').hide();
+        $('#departement-search').hide();
+        $('#commune-search').show();
     });
     ////////CHART////////
 
