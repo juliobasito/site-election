@@ -1,3 +1,13 @@
+
+<html>
+<head>
+    <title>jVectorMap demo</title>
+    <link rel="stylesheet" href="../jvectormap/jquery-jvectormap-2.0.3.css" type="text/css" media="screen"/>
+    <script src="../jvectormap/jquery.js"></script>
+    <script src="../jvectormap/jquery-jvectormap-2.0.3.min.js"></script>
+    <script src="../jvectormap/jquery-jvectormap-world-mill.js"></script>
+</head>
+<body>
 <?php
 if (!empty($_POST["valider-region"])) {
     $candidats = array();
@@ -26,3 +36,12 @@ if (!empty($_POST["valider-region"])) {
 <script>
     $('select[name=region]').select2();
 </script>
+
+<div id="world-map" style="width: 600px; height: 400px"></div>
+<script>
+    $(function(){
+        $('#world-map').vectorMap({map: 'world_mill'});
+    });
+</script>
+</body>
+</html>

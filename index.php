@@ -30,7 +30,7 @@ array_multisort($price, SORT_DESC, $candidats);
     <script src="http://jvectormap.com/js/jquery-jvectormap-fr_regions-mill.js"></script>
     <script src="http://jvectormap.com/js/jquery-jvectormap-fr-mill.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 </head>
 <body>
@@ -59,15 +59,15 @@ array_multisort($price, SORT_DESC, $candidats);
 </nav>
 <div class="container">
 
-<!--    <div class="container">-->
-        <?php
-        $xml = simplexml_load_file('http://www.interieur.gouv.fr/avotreservice/elections/telechargements/EssaiPR2017/referencePR/listeregdptcom.xml');
+    <!--    <div class="container">-->
+    <?php
+    $xml = simplexml_load_file('http://www.interieur.gouv.fr/avotreservice/elections/telechargements/EssaiPR2017/referencePR/listeregdptcom.xml');
 
-        require 'pages/regions.php';
-        require 'pages/departements.php';
-//        require 'pages/communes.php';
-        ?>
-<!--    </div>-->
+    require 'pages/regions.php';
+    require 'pages/departements.php';
+    //        require 'pages/communes.php';
+    ?>
+    <!--    </div>-->
     <div class="container">
 
         <div id="map-container">
@@ -181,10 +181,8 @@ array_multisort($price, SORT_DESC, $candidats);
     ////////CHART////////
 
 
-    $(function () {
-        $('#map').vectorMap({
-            map: 'fr_regions_mill'
-        });
+    $('#map').vectorMap({
+        map: 'fr_regions_mill'
     });
 </script>
 </html>
