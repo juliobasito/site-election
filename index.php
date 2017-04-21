@@ -85,63 +85,87 @@ array_multisort($price, SORT_DESC, $candidats);
 </body>
 <script>
     ////////CHART////////
-    var ctx = document.getElementById("myChart").getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: [
-                <?php
-                foreach ($candidats as $candidat) {
-                    echo '"' . $candidat['NomPsn'] . ' ' . $candidat['PrenomPsn'] . '",';
-                }
-                echo '""';
-                ?>
-            ],
-            datasets: [{
-                backgroundColor: [
-                    '#E50077',
-                    '#E10001',
-                    '#DE7100',
-                    '#D4DA00',
-                    '#61D700',
-                    '#00D30D',
-                    '#00D078',
-                    '#00B8CC',
-                    '#004DC9',
-                    '#1A00C5',
-                    '#7E00C2',
-                    '#BF009E',
-                    'transparent'
-                ],
-                data: [
-                    <?php
-                    foreach ($candidats as $candidat) {
-                        echo str_replace(',', '.', $candidat['RapportExprime']) . ',';
-                    }
-                    echo 50;
-                    ?>
-                ]
-
-            }]
+    var labels = [
+        <?php
+        foreach ($candidats as $candidat) {
+            echo '"' . $candidat['NomPsn'] . ' ' . $candidat['PrenomPsn'] . '",';
         }
-    });
+        echo '""';
+        ?>
+    ];
+    var scores = [
+        <?php
+        foreach ($candidats as $candidat) {
+            echo str_replace(',', '.', $candidat['RapportExprime']) . ',';
+        }
+        echo 50;
+        ?>
+    ];
+
+
+    function displayChart(labels, scores){
+
+        $('#chart-container').html('<canvas id="myChart" style="width: 1000px; height: 1000px;"></canvas>');
+        var ctx = document.getElementById("myChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    backgroundColor: [
+                        '#E50077',
+                        '#E10001',
+                        '#DE7100',
+                        '#D4DA00',
+                        '#61D700',
+                        '#00D30D',
+                        '#00D078',
+                        '#00B8CC',
+                        '#004DC9',
+                        '#1A00C5',
+                        '#7E00C2',
+                        '#BF009E',
+                        'transparent'
+                    ],
+                    data: scores
+
+                }]
+            }
+        });
+    }
+    displayChart(labels, scores);
+
     ////////CHART////////
 
 
     ////////AJAX////////
-    var host = 'http://www.interieur.gouv.fr/avotreservice/elections/telechargements/EssaiPR2017/resultatsT1/';
+    var host = 'http://localhost/THEO/site-election/api/';
 
 
-    function search() {
+    function search(form) {
 
         $.ajax({
-            type: 'GET',
-            url: host + 'FE.xml',
-            data: '',
+            type: 'POST',
+            url: host + 'index.php',
+            data: form,
             crossDomain: true,
             success: function (data, xhr) {
+                data = JSON.parse(data);
                 console.log('revceived');
-                console.log(data);
+
+                labels = [];
+                for(var i=0; i< data['candidats'].length; i++){
+                    labels.push(data['candidats'][i]['NomPsn']+' '+data['candidats'][i]['PrenomPsn']);
+                }
+
+                scores = [];
+                for(var i=0; i< data['candidats'].length; i++){
+                    scores.push(data['candidats'][i]['RapportExprime'].replace(',', '.'));
+                }
+
+                displayChart(labels, scores);
+
+//                console.log(data);
             },
             error: function (data, xhr) {
                 console.log('error');
@@ -149,17 +173,21 @@ array_multisort($price, SORT_DESC, $candidats);
             }
         });
 
-        $('#map-container').html(' <div id="map" style="width: 1000px; height: 1000px;"></div>');
-        $('#map').vectorMap({
-            map: 'fr_mill'
-        });
-
     }
 
-    $('#map').click(function () {
-        search();
+
+    $('#valider-departements').click(function (e) {
+        e.preventDefault();
+        search($('#departement-search').serialize());
         console.log('yes');
     });
+    $('#valider-region').click(function (e) {
+        e.preventDefault();
+        search($('#region-search').serialize());
+        console.log('yes');
+    });
+
+
 
 
     $('.level0').click(function (e) {
@@ -182,6 +210,7 @@ array_multisort($price, SORT_DESC, $candidats);
 
 
     $(function () {
+
         $('#map').vectorMap({
             map: 'fr_regions_mill'
         });
