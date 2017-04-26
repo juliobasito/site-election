@@ -127,7 +127,7 @@ array_multisort($price, SORT_DESC, $candidats);
                         '#004DC9',
                         '#1A00C5',
                         '#7E00C2',
-                        '#BF009E',
+//                        '#BF009E',
                         'transparent'
                     ],
                     data: scores
@@ -192,27 +192,9 @@ array_multisort($price, SORT_DESC, $candidats);
         search($('#commune-search').serialize());
     });
 
-    //
-    //    $('#valider-departements').click(function (e) {
-    //        e.preventDefault();
-    //        search($('#departement-search').serialize());
-    //    });
-    //    $('#valider-region').click(function (e) {
-    //        e.preventDefault();
-    //        search($('#region-search').serialize());
-    //    });
-    //    $('#valider-communes').click(function (e) {
-    //        e.preventDefault();
-    //        search($('#commune-search').serialize());
-    //    });
-
 
     $('.level0').click(function (e) {
         e.preventDefault();
-//        $('#map-container').html(' <div id="map" style="width: 1000px; height: 1000px;"></div>');
-//        $('#map').vectorMap({
-//            map: 'fr_regions_mill'
-//        });
         displayChart(labels, scores);
 
         $('#region-search').hide();
@@ -221,45 +203,22 @@ array_multisort($price, SORT_DESC, $candidats);
     });
     $('.level1').click(function (e) {
         e.preventDefault();
-//        $('#map-container').html(' <div id="map" style="width: 1000px; height: 1000px;"></div>');
-//        $('#map').vectorMap({
-//            map: 'fr_regions_mill'
-//        });
-
         $('#region-search').show();
         $('#departement-search').hide();
         $('#commune-search').hide();
     });
     $('.level2').click(function (e) {
         e.preventDefault();
-//        $('#map-container').html(' <div id="map" style="width: 1000px; height: 1000px;"></div>');
-//
-//        $('#map').vectorMap({
-//            map: 'fr_mill'
-//        });
         $('#region-search').hide();
         $('#departement-search').show();
         $('#commune-search').hide();
     });
     $('.level3').click(function (e) {
         e.preventDefault();
-//        $('#map-container').html(' <div id="map" style="width: 1000px; height: 1000px;"></div>');
-//
-//        $('#map').vectorMap({
-//            map: 'fr_mill'
-//        });
         $('#region-search').hide();
         $('#departement-search').hide();
         $('#commune-search').show();
     });
-    ////////CHART////////
 
-
-    //    $(function () {
-    //
-    //        $('#map').vectorMap({
-    //            map: 'fr_regions_mill'
-    //        });
-    //    });
 </script>
 </html>
