@@ -1,2 +1,2 @@
 <?php
-$host = 'http://localhost/THEO/site-election/';
+$host = 'http://localhost/site-election/';

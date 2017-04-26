@@ -57,6 +57,7 @@ if (!empty($_POST["departement"])) {
     array_multisort($price, SORT_DESC, $candidats);
 
     echo json_encode(array(
+
         'success' => false,
         'candidats' => $candidats,
         'votant' => array(
