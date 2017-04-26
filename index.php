@@ -165,9 +165,9 @@ array_multisort($price, SORT_DESC, $candidats);
                     scores.push(data['candidats'][i]['RapportExprime'].replace(',', '.'));
                 }
                 scores.push(50);
-                $('.nb-votants').html(data['votant']['number'] + ', soit ' + data['votant']['number'] + ' %');
-                $('.nb-abstention').html(data['abstention']['number'] + ', soit ' + data['abstention']['number'] + ' %');
-                $('.nb-vote-blanc').html(data['blanc']['number'] + ', soit ' + data['blanc']['number'] + ' %');
+//                $('.nb-votants').html(data['votant']['number'] + ', soit ' + data['votant']['number'] + ' %');
+//                $('.nb-abstention').html(data['abstention']['number'] + ', soit ' + data['abstention']['number'] + ' %');
+//                $('.nb-vote-blanc').html(data['blanc']['number'] + ', soit ' + data['blanc']['number'] + ' %');
 
                 displayChart(labels, scores);
 

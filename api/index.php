@@ -23,18 +23,18 @@ if (!empty($_POST["commune"])) {
     echo json_encode(array(
         'success' => false,
         'candidats' => $candidats,
-        'votant' => array(
-            'number' => $fe->Tours->Tour->Mentions->Votants->Nombre,
-            'percent' => $fe->Tours->Tour->Mentions->Votants->RapportInscrit,
-        ),
-        'abstention' => array(
-            'number' => $fe->Tours->Tour->Mentions->Abstentions->Nombre,
-            'percent' => $fe->Tours->Tour->Mentions->Abstentions->RapportInscrit,
-        ),
-        'blanc' => array(
-            'number' => $fe->Tours->Tour->Mentions->Blancs->Nombre,
-            'percent' => $fe->Tours->Tour->Mentions->Blancs->RapportInscrit,
-        )
+//        'votant' => array(
+//            'number' => $fe->Tours->Tour->Mentions->Votants->Nombre,
+//            'percent' => $fe->Tours->Tour->Mentions->Votants->RapportInscrit,
+//        ),
+//        'abstention' => array(
+//            'number' => $fe->Tours->Tour->Mentions->Abstentions->Nombre,
+//            'percent' => $fe->Tours->Tour->Mentions->Abstentions->RapportInscrit,
+//        ),
+//        'blanc' => array(
+//            'number' => $fe->Tours->Tour->Mentions->Blancs->Nombre,
+//            'percent' => $fe->Tours->Tour->Mentions->Blancs->RapportInscrit,
+//        )
     ));
     die;
 
@@ -59,18 +59,18 @@ if (!empty($_POST["departement"])) {
     echo json_encode(array(
         'success' => false,
         'candidats' => $candidats,
-        'votant' => array(
-            'number' => $fe->Tours->Tour->Mentions->Votants->Nombre,
-            'percent' => $fe->Tours->Tour->Mentions->Votants->RapportInscrit,
-        ),
-        'abstention' => array(
-            'number' => $fe->Tours->Tour->Mentions->Abstentions->Nombre,
-            'percent' => $fe->Tours->Tour->Mentions->Abstentions->RapportInscrit,
-        ),
-        'blanc' => array(
-            'number' => $fe->Tours->Tour->Mentions->Blancs->Nombre,
-            'percent' => $fe->Tours->Tour->Mentions->Blancs->RapportInscrit,
-        )
+//        'votant' => array(
+//            'number' => $fe->Tours->Tour->Mentions->Votants->Nombre,
+//            'percent' => $fe->Tours->Tour->Mentions->Votants->RapportInscrit,
+//        ),
+//        'abstention' => array(
+//            'number' => $fe->Tours->Tour->Mentions->Abstentions->Nombre,
+//            'percent' => $fe->Tours->Tour->Mentions->Abstentions->RapportInscrit,
+//        ),
+//        'blanc' => array(
+//            'number' => $fe->Tours->Tour->Mentions->Blancs->Nombre,
+//            'percent' => $fe->Tours->Tour->Mentions->Blancs->RapportInscrit,
+//        )
     ));
     die;
 }
@@ -91,18 +91,18 @@ if (!empty($_POST["region"])) {
     echo json_encode(array(
         'success' => false,
         'candidats' => $candidats,
-        'votant' => array(
-            'number' => $xml2->Tours->Tour->Mentions->Votants->Nombre,
-            'percent' => $xml2->Tours->Tour->Mentions->Votants->RapportInscrit,
-        ),
-        'abstention' => array(
-            'number' => $xml2->Tours->Tour->Mentions->Abstentions->Nombre,
-            'percent' => $xml2->Tours->Tour->Mentions->Abstentions->RapportInscrit,
-        ),
-        'blanc' => array(
-            'number' => $xml2->Tours->Tour->Mentions->Blancs->Nombre,
-            'percent' => $xml2->Tours->Tour->Mentions->Blancs->RapportInscrit,
-        )
+//        'votant' => array(
+//            'number' => $xml2->Tours->Tour->Mentions->Votants->Nombre,
+//            'percent' => $xml2->Tours->Tour->Mentions->Votants->RapportInscrit,
+//        ),
+//        'abstention' => array(
+//            'number' => $xml2->Tours->Tour->Mentions->Abstentions->Nombre,
+//            'percent' => $xml2->Tours->Tour->Mentions->Abstentions->RapportInscrit,
+//        ),
+//        'blanc' => array(
+//            'number' => $xml2->Tours->Tour->Mentions->Blancs->Nombre,
+//            'percent' => $xml2->Tours->Tour->Mentions->Blancs->RapportInscrit,
+//        )
     ));
     die;
 }
