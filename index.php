@@ -51,6 +51,7 @@ array_multisort($price, SORT_DESC, $candidats);
                 <li><a class="level1" href="pages/regions.php">Région</a></li>
                 <li><a class="level2" href="pages/departements.php">Département</a></li>
                 <li><a class="level3" href="pages/communes.php">Communes</a></li>
+                <li><a class="level4" href="pages/lg.php">Collectifs</a></li>
             </ul>
         </div>
     </div>
