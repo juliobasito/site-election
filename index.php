@@ -13,6 +13,19 @@ foreach ($candidats as $key => $row) {
     $price[$key] = $row['RapportExprime'];
 }
 array_multisort($price, SORT_DESC, $candidats);
+
+//collectifs
+$felg = simplexml_load_file('http://www.interieur.gouv.fr/avotreservice/elections/telechargements/EssaiLG2017/resultatsT1/FE.xml');
+foreach ($felg->Tours->Tour->Resultats->Nuances->Nuance as $nuance) {
+    $nuances[] = (array)$nuance;
+}
+
+$nuances_ = array();
+foreach ($nuances as $key => $row) {
+    $nuances_[$key] = $row['RapportExprime'];
+}
+array_multisort($nuances_, SORT_DESC, $nuances);
+
 ?>
 
 
@@ -68,8 +81,8 @@ array_multisort($price, SORT_DESC, $candidats);
     ?>
     <div class="container">
 
-        <div id="chart-container"  style="width: 50%;">
-            <canvas id="myChart" style="width: 1000px; height: 1000px;"></canvas>
+        <div id="chart-container" style="width: 50%;">
+            <canvas id="myChart" ></canvas>
 
         </div>
         <table class='table' style="width: 50%;">
@@ -84,7 +97,31 @@ array_multisort($price, SORT_DESC, $candidats);
             <?php
             foreach ($candidats as $candidat) {
                 $candidat = (object)$candidat;
-                echo "<tr><td class='name'>" . $candidat->PrenomPsn . " " . $candidat->NomPsn . "</td><td class='voix'>" . number_format($candidat->NbVoix, 0,'', ' ') . "</td><td class='rapport'>" . $candidat->RapportExprime . "%</td>";
+                echo "<tr><td class='name'>" . $candidat->PrenomPsn . " " . $candidat->NomPsn . "</td><td class='voix'>" . number_format($candidat->NbVoix, 0, '', ' ') . "</td><td class='rapport'>" . $candidat->RapportExprime . "%</td>";
+            }
+            ?>
+        </table>
+        </tbody>
+    </div>
+    <div class="container">
+
+        <div id="chart-container-lg" style="width: 65%;">
+            <canvas id="myChart-lg" ></canvas>
+
+        </div>
+        <table class='table' style="width: 34%;">
+            <thead>
+            <tr>
+                <th>Candidat</th>
+                <th>Nombre de voix</th>
+                <th>Pourcentage</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            foreach ($nuances as $nuance) {
+                $nuance = (object)$nuance;
+                echo "<tr><td class='name'>" . $nuance->LibNua . "</td><td class='voix'>" . number_format($nuance->NbVoix, 0, '', ' ') . "</td><td class='rapport'>" . $nuance->RapportExprime . "%</td>";
             }
             ?>
         </table>
@@ -117,7 +154,7 @@ array_multisort($price, SORT_DESC, $candidats);
     function displayChart(labels, scores) {
 
 
-        $('#chart-container').html('<canvas id="myChart" style="width: 1000px; height: 1000px;"></canvas>');
+        $('#chart-container').html('<canvas id="myChart" ></canvas>');
         var ctx = document.getElementById("myChart").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',
@@ -147,6 +184,62 @@ array_multisort($price, SORT_DESC, $candidats);
     }
     displayChart(labels, scores);
 
+    ///////////////////////////LG
+    var labels_lg = [
+        <?php
+        foreach ($nuances as $nuance) {
+            echo '"' . $nuance['LibNua'] . ' ",';
+        }
+        echo '""';
+        ?>
+    ];
+    var scores_lg = [
+        <?php
+        foreach ($nuances as $nuance) {
+            echo str_replace(',', '.', $nuance['RapportExprime']) . ',';
+        }
+        echo 50;
+        ?>
+    ];
+
+
+    function displayChart_lg(labels, scores) {
+
+
+        $('#chart-container-lg').html('<canvas id="myChart-lg" ></canvas>');
+        var ctx = document.getElementById("myChart-lg").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    backgroundColor: [
+                        '#E50077',
+                        '#E10001',
+                        '#DE7100',
+                        '#D4DA00',
+                        '#61D700',
+                        '#00D30D',
+                        '#00D078',
+                        '#00B8CC',
+                        '#004DC9',
+                        '#1A00C5',
+                        '#7E00C2',
+                        '#BF009E',
+                        '#004DC9',
+                        '#1A00C5',
+                        '#7E00C2',
+                        '#BF009E',
+                        'transparent'
+                   ],
+                    data: scores
+
+                }]
+            }
+        });
+    }
+    displayChart_lg(labels_lg, scores_lg);
+
     ////////CHART////////
 
 
@@ -173,7 +266,7 @@ array_multisort($price, SORT_DESC, $candidats);
                     scores.push(data['candidats'][i]['RapportExprime'].replace(',', '.'));
                     $('.name').eq(i).html(data['candidats'][i]['NomPsn'] + ' ' + data['candidats'][i]['PrenomPsn']);
                     $('.voix').eq(i).html(parseInt(data['candidats'][i]['NbVoix']).toLocaleString());
-                    $('.rapport').eq(i).html(data['candidats'][i]['RapportExprime'].replace(',', '.')+' %');
+                    $('.rapport').eq(i).html(data['candidats'][i]['RapportExprime'].replace(',', '.') + ' %');
                 }
                 scores.push(50);
 //                $('.nb-votants').html(data['votant']['number'] + ', soit ' + data['votant']['number'] + ' %');

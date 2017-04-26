@@ -15,10 +15,10 @@
 <?php
 if (!empty($_POST["valider-region"])) {
     $candidats = array();
-    $xml2 = simplexml_load_file('http://elections.interieur.gouv.fr/telechargements/PR2017/resultatsT1/' . $_POST['region'] . '/' . $_POST["region"] . '.xml');
-    foreach ($xml2->Region->Tours->Tour->Resultats->Candidats->Candidat as $candidat) {
-        echo $candidat->NomPsn . " a obtenu " . $candidat->RapportExprime . " %</br>";
-        $candidats[] = (array)$candidat;
+    $xml2 = simplexml_load_file('http://www.interieur.gouv.fr/avotreservice/elections/telechargements/EssaiLG2017/resultatsT1/FE.xml');
+    foreach ($xml2->Region->Tours->Tour->Resultats->Nuances->Nuance as $nuance) {
+        echo $nuance->LibNua . " a obtenu " . $nuance->RapportExprime . " %</br>";
+        $nuance[] = (array)$nuance;
     }
 }
 ?>
