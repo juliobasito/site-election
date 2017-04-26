@@ -180,6 +180,14 @@ array_multisort($nuances_, SORT_DESC, $nuances);
                     data: scores
 
                 }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    enabled: false
+                }
             }
         });
     }
@@ -235,6 +243,14 @@ array_multisort($nuances_, SORT_DESC, $nuances);
                     data: scores_lg
 
                 }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    enabled: false
+                }
             }
         });
     }
