@@ -67,19 +67,27 @@ array_multisort($price, SORT_DESC, $candidats);
     ?>
     <div class="container">
 
-        <div id="chart-container">
+        <div id="chart-container"  style="width: 50%;">
             <canvas id="myChart" style="width: 1000px; height: 1000px;"></canvas>
 
         </div>
-        <div id="legend">
-            <!--            --><?php //var_dump($fe->Tours->Tour->Mentions); ?>
-            <p>Nombre de votants: <i class="nb-votants"><?php echo $fe->Tours->Tour->Mentions->Votants->Nombre; ?>,
-                    soit <?php echo $fe->Tours->Tour->Mentions->Votants->RapportInscrit; ?> %</i></p>
-            <p>Abstention: <i class="nb-abstention"><?php echo $fe->Tours->Tour->Mentions->Abstentions->Nombre; ?>,
-                    soit <?php echo $fe->Tours->Tour->Mentions->Abstentions->RapportInscrit; ?> %</i></p>
-            <p>Vote blanc: <i class="nb-vote-blanc"><?php echo $fe->Tours->Tour->Mentions->Blancs->Nombre; ?>,
-                    soit <?php echo $fe->Tours->Tour->Mentions->Blancs->RapportInscrit; ?> %</i></p>
-        </div>
+        <table class='table' style="width: 50%;">
+            <thead>
+            <tr>
+                <th>Candidat</th>
+                <th>Nombre de voix</th>
+                <th>Pourcentage</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            foreach ($candidats as $candidat) {
+                $candidat = (object)$candidat;
+                echo "<tr><td class='name'>" . $candidat->PrenomPsn . " " . $candidat->NomPsn . "</td><td class='voix'>" . number_format($candidat->NbVoix, 0,'', ' ') . "</td><td class='rapport'>" . $candidat->RapportExprime . "%</td>";
+            }
+            ?>
+        </table>
+        </tbody>
     </div>
 </div>
 
@@ -156,13 +164,15 @@ array_multisort($price, SORT_DESC, $candidats);
                 console.log('revceived');
 
                 labels = [];
-                for (var i = 0; i < data['candidats'].length; i++) {
-                    labels.push(data['candidats'][i]['NomPsn'] + ' ' + data['candidats'][i]['PrenomPsn']);
-                }
-
                 scores = [];
+
                 for (var i = 0; i < data['candidats'].length; i++) {
+//                    console.log(data['candidats']);
+                    labels.push(data['candidats'][i]['NomPsn'] + ' ' + data['candidats'][i]['PrenomPsn']);
                     scores.push(data['candidats'][i]['RapportExprime'].replace(',', '.'));
+                    $('.name').eq(i).html(data['candidats'][i]['NomPsn'] + ' ' + data['candidats'][i]['PrenomPsn']);
+                    $('.voix').eq(i).html(parseInt(data['candidats'][i]['NbVoix']).toLocaleString());
+                    $('.rapport').eq(i).html(data['candidats'][i]['RapportExprime'].replace(',', '.')+' %');
                 }
                 scores.push(50);
 //                $('.nb-votants').html(data['votant']['number'] + ', soit ' + data['votant']['number'] + ' %');
