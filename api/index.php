@@ -9,7 +9,7 @@ if (!empty($_POST["commune"])) {
     $region = $explode[0];
     $departement = $explode[1];
     $commune = $explode[2];
-    $xml2 = simplexml_load_file('http://www.interieur.gouv.fr/avotreservice/elections/telechargements/EssaiPR2017/resultatsT1/' . $region . '/' . $departement . '/' . $departement . '' . $commune . '.xml');
+    $xml2 = simplexml_load_file('http://elections.interieur.gouv.fr/telechargements/PR2017/resultatsT1/' . $region . '/' . $departement . '/' . $departement . '' . $commune . '.xml');
     foreach ($xml2->Departement->Commune->Tours->Tour->Resultats->Candidats->Candidat as $candidat) {
 //        echo $candidat->NomPsn . " a obtenu " . $candidat->NbVoix . " voix, bien joue !</br>";
         $candidats[] = (array)$candidat;
@@ -44,7 +44,7 @@ if (!empty($_POST["departement"])) {
     $explode = explode(".", $_POST["departement"]);
     $region = $explode[0];
     $departement = $explode[1];
-    $xml2 = simplexml_load_file('http://www.interieur.gouv.fr/avotreservice/elections/telechargements/EssaiPR2017/resultatsT1/' . $region . '/' . $departement . '/' . $departement . '.xml');
+    $xml2 = simplexml_load_file('http://elections.interieur.gouv.fr/telechargements/PR2017/resultatsT1/' . $region . '/' . $departement . '/' . $departement . '.xml');
     foreach ($xml2->Departement->Tours->Tour->Resultats->Candidats->Candidat as $candidat) {
 //        echo $candidat->NomPsn . " a obtenu " . $candidat->RapportExprime . " %</br>";
         $candidats[] = (array)$candidat;
@@ -78,7 +78,7 @@ if (!empty($_POST["departement"])) {
 
 if (!empty($_POST["region"])) {
     $candidats = array();
-    $xml2 = simplexml_load_file('http://www.interieur.gouv.fr/avotreservice/elections/telechargements/EssaiPR2017/resultatsT1/' . $_POST['region'] . '/' . $_POST["region"] . '.xml');
+    $xml2 = simplexml_load_file('http://elections.interieur.gouv.fr/telechargements/PR2017/resultatsT1/' . $_POST['region'] . '/' . $_POST["region"] . '.xml');
     foreach ($xml2->Region->Tours->Tour->Resultats->Candidats->Candidat as $candidat) {
 //        echo $candidat->NomPsn . " a obtenu " . $candidat->RapportExprime . " %</br>";
         $candidats[] = (array)$candidat;
