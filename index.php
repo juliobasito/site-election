@@ -80,12 +80,12 @@ array_multisort($nuances_, SORT_DESC, $nuances);
     require 'pages/communes.php';
     ?>
     <div class="container">
-
-        <div id="chart-container" style="width: 50%;">
-            <canvas id="myChart" ></canvas>
+        <h1 class="text-align: center;">Présidentielles 2017</h1>
+        <div id="chart-container" style="width: 60%;">
+            <canvas id="myChart"></canvas>
 
         </div>
-        <table class='table' style="width: 50%;">
+        <table class='table table_pr' style="width: 40%;">
             <thead>
             <tr>
                 <th>Candidat</th>
@@ -103,13 +103,14 @@ array_multisort($nuances_, SORT_DESC, $nuances);
         </table>
         </tbody>
     </div>
+    <div class="clearfix"></div>
     <div class="container">
-
-        <div id="chart-container-lg" style="width: 65%;">
-            <canvas id="myChart-lg" ></canvas>
+        <h1 class="text-align: center;">Législatives</h1>
+        <div id="chart-container-lg" style="width: 60%;">
+            <canvas id="myChart-lg"></canvas>
 
         </div>
-        <table class='table' style="width: 34%;">
+        <table class='table table_lg' style="width: 40%;">
             <thead>
             <tr>
                 <th>Candidat</th>
@@ -203,15 +204,14 @@ array_multisort($nuances_, SORT_DESC, $nuances);
     ];
 
 
-    function displayChart_lg(labels, scores) {
-
+    function displayChart_lg(labels_lg, scores_lg) {
 
         $('#chart-container-lg').html('<canvas id="myChart-lg" ></canvas>');
         var ctx = document.getElementById("myChart-lg").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: labels,
+                labels: labels_lg,
                 datasets: [{
                     backgroundColor: [
                         '#E50077',
@@ -231,8 +231,8 @@ array_multisort($nuances_, SORT_DESC, $nuances);
                         '#7E00C2',
                         '#BF009E',
                         'transparent'
-                   ],
-                    data: scores
+                    ],
+                    data: scores_lg
 
                 }]
             }
@@ -259,21 +259,35 @@ array_multisort($nuances_, SORT_DESC, $nuances);
 
                 labels = [];
                 scores = [];
+                labels_lg = [];
+                scores_lg = [];
 
                 for (var i = 0; i < data['candidats'].length; i++) {
 //                    console.log(data['candidats']);
                     labels.push(data['candidats'][i]['NomPsn'] + ' ' + data['candidats'][i]['PrenomPsn']);
                     scores.push(data['candidats'][i]['RapportExprime'].replace(',', '.'));
-                    $('.name').eq(i).html(data['candidats'][i]['NomPsn'] + ' ' + data['candidats'][i]['PrenomPsn']);
-                    $('.voix').eq(i).html(parseInt(data['candidats'][i]['NbVoix']).toLocaleString());
-                    $('.rapport').eq(i).html(data['candidats'][i]['RapportExprime'].replace(',', '.') + ' %');
+                    $('.table_pr .name').eq(i).html(data['candidats'][i]['NomPsn'] + ' ' + data['candidats'][i]['PrenomPsn']);
+                    $('.table_pr .voix').eq(i).html(parseInt(data['candidats'][i]['NbVoix']).toLocaleString());
+                    $('.table_pr .rapport').eq(i).html(data['candidats'][i]['RapportExprime'].replace(',', '.') + ' %');
                 }
                 scores.push(50);
-//                $('.nb-votants').html(data['votant']['number'] + ', soit ' + data['votant']['number'] + ' %');
-//                $('.nb-abstention').html(data['abstention']['number'] + ', soit ' + data['abstention']['number'] + ' %');
-//                $('.nb-vote-blanc').html(data['blanc']['number'] + ', soit ' + data['blanc']['number'] + ' %');
-
                 displayChart(labels, scores);
+
+
+                if (typeof data['nuances'] !== 'undefined') {
+                    for (var i = 0; i < data['nuances'].length; i++) {
+//                    console.log(data['candidats']);
+                        labels_lg.push(data['nuances'][i]['LibNua']);
+                        scores_lg.push(data['nuances'][i]['RapportExprime'].replace(',', '.'));
+                        $('.table_lg .name').eq(i).html(data['nuances'][i]['LibNua']);
+                        $('.table_lg .voix').eq(i).html(parseInt(data['nuances'][i]['NbVoix']).toLocaleString());
+                        $('.table_lg .rapport').eq(i).html(data['nuances'][i]['RapportExprime'].replace(',', '.') + ' %');
+                    }
+                    scores_lg.push(50);
+
+                    displayChart_lg(labels_lg, scores_lg);
+                }
+
 
             },
             error: function (data, xhr) {
@@ -304,6 +318,7 @@ array_multisort($nuances_, SORT_DESC, $nuances);
     $('.level0').click(function (e) {
         e.preventDefault();
         displayChart(labels, scores);
+        displayChart(labels_lg, scores_lg);
 
         $('#region-search').hide();
         $('#departement-search').hide();

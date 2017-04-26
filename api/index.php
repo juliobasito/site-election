@@ -15,9 +15,25 @@ if (empty($_POST)) {
         $price[$key] = $row['RapportExprime'];
     }
     array_multisort($price, SORT_DESC, $candidats);
+
+    //collectifs
+    $felg = simplexml_load_file('http://www.interieur.gouv.fr/avotreservice/elections/telechargements/EssaiLG2017/resultatsT1/FE.xml');
+    foreach ($felg->Tours->Tour->Resultats->Nuances->Nuance as $nuance) {
+        $nuances[] = (array)$nuance;
+    }
+
+    $nuances_ = array();
+    foreach ($nuances as $key => $row) {
+        $nuances_[$key] = $row['RapportExprime'];
+    }
+    array_multisort($nuances_, SORT_DESC, $nuances);
+
+
+
     echo json_encode(array(
         'success' => false,
         'candidats' => $candidats,
+        'nuances' => $nuances
     ));
     die;
 

@@ -21,15 +21,6 @@ a{
 	height: 100%;
 }
 
-/*#map-container{*/
-	/*float: left;*/
-	/*height: 50%;*/
-	/*width: 40%;*/
-/*}*/
-/*.jvectormap-container{*/
-	/*height: 50%;*/
-	/*width: 40%;*/
-/*}*/
 
 #chart-container{
 	float: left;
@@ -48,8 +39,6 @@ a{
 	width: 500px !important;
 }
 
-
-#map {
-	height: 400px;
-	width: 100%;
+.container{
+	height: auto;
 }
