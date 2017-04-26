@@ -2,6 +2,26 @@
 <?php
 
 
+if (empty($_POST)) {
+    $fe = simplexml_load_file('http://elections.interieur.gouv.fr/telechargements/PR2017/resultatsT1/FE.xml');
+
+    $candidats = array();
+    foreach ($fe->Tours->Tour->Resultats->Candidats->Candidat as $candidat) {
+        $candidats[] = (array)$candidat;
+    }
+
+    $price = array();
+    foreach ($candidats as $key => $row) {
+        $price[$key] = $row['RapportExprime'];
+    }
+    array_multisort($price, SORT_DESC, $candidats);
+    echo json_encode(array(
+        'success' => false,
+        'candidats' => $candidats,
+    ));
+    die;
+
+}
 if (!empty($_POST["commune"])) {
     $explode = explode(".", $_POST["commune"]);
     $region = $explode[0];

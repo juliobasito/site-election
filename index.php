@@ -189,6 +189,10 @@ array_multisort($price, SORT_DESC, $candidats);
         });
 
     }
+    $('.level0').on('click', function (e) {
+        e.preventDefault();
+        search();
+    });
     $('#departement-search').on('change', function (e) {
         e.preventDefault();
         search($('#departement-search').serialize());
